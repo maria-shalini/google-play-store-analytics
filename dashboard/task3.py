@@ -12,22 +12,27 @@ def is_time_allowed(start_hour, end_hour):
 def task3_choropleth_map(visible_mode=False):
     if not visible_mode and not is_time_allowed(18, 20):
         return None
-    df = pd.read_csv("data/cleaned_apps.csv")
-    df = df.dropna(subset=["Category", "Installs", "Country"])
-    df = df[~df["Category"].str.startswith(("A", "C", "G", "S"))]
-    if df.empty:
-        st.info("No data available after category exclusion.")
-        return None
+    apps_df = pd.read_csv("data/cleaned_apps.csv")
+    reviews_df = pd.read_csv("data/User Reviews.csv")
+    apps_df = apps_df[["App", "Category", "Installs"]]
+    reviews_df = reviews_df[["App", "Translated_Review", "Sentiment"]]
+    reviews_df["Country"] = reviews_df["Translated_Review"].apply(
+        lambda x: "United States" if isinstance(x, str) else None
+    )
+    merged_df = apps_df.merge(reviews_df, on="App", how="inner")
+    merged_df = merged_df[
+        ~merged_df["Category"].str.startswith(("A", "C", "G", "S"))
+    ]
     top_categories = (
-        df.groupby("Category")["Installs"]
+        merged_df.groupby("Category")["Installs"]
         .sum()
         .sort_values(ascending=False)
         .head(5)
         .index
     )
-    df = df[df["Category"].isin(top_categories)]
+    merged_df = merged_df[merged_df["Category"].isin(top_categories)]
     summary_df = (
-        df.groupby(["Country", "Category"])
+        merged_df.groupby(["Country", "Category"])
         .agg(Total_Installs=("Installs", "sum"))
         .reset_index()
     )
@@ -52,7 +57,6 @@ def task3_choropleth_map(visible_mode=False):
         hover_name="Category",
         hover_data={
             "Total_Installs": ":,",
-            "Country": True,
             "Highlight": True
         },
         color_continuous_scale="Viridis",
