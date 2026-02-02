@@ -13,13 +13,18 @@ st.subheader("Task 1: Average Rating vs Total Reviews")
 visible_mode = False   # set True always the dashboard will visible
 fig = task1_grouped_bar_chart(visible_mode=visible_mode)
 if fig is None and not visible_mode:
-    st.warning("This chart is available only between 3 PM and 5 PM IST.")
+    st.warning("Task 1: This chart is available only between 3 PM and 5 PM IST.")
 from dashboard.task2 import task2_dual_axis_chart
 st.divider()
 st.subheader("Task 2: Free vs Paid Apps – Installs & Revenue")
-visible_mode = True
+visible_mode = False   # set True always the dashboard will visible
 fig2 = task2_dual_axis_chart(visible_mode=visible_mode)
 if fig2 is None:
-    st.warning("TASK: 2 - This chart is available only between 1 PM and 2 PM IST.")
-
-
+    st.warning("Task: 2 - This chart is available only between 1 PM and 2 PM IST.")
+from dashboard.task3 import task3_choropleth_map
+st.divider()
+st.subheader("Task 3: Global Installs by Category (Choropleth Map)")
+visible_mode = True  # set False before final submission
+fig3 = task3_choropleth_map(visible_mode=visible_mode)
+if fig3 is None:
+    st.warning("Task 3: This map is available only between 6 PM and 8 PM IST.")
