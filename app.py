@@ -24,3 +24,14 @@ fig = task1_grouped_bar_chart(visible_mode=visible_mode)
 if fig is None and not visible_mode:
     st.warning("This chart is available only between 3 PM and 5 PM IST.")
 
+from dashboard.task2 import task2_dual_axis_chart
+
+st.divider()
+st.subheader("Task 2: Free vs Paid Apps – Installs & Revenue")
+visible_mode = True
+fig2 = task2_dual_axis_chart(visible_mode=visible_mode)
+
+if fig2 is None:
+    st.warning("This chart is available only between 1 PM and 2 PM IST.")
+
+
