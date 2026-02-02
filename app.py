@@ -24,7 +24,7 @@ if fig2 is None:
 from dashboard.task3 import task3_choropleth_map
 st.divider()
 st.subheader("Task 3: Global Installs by Category (Choropleth Map)")
-visible_mode = True  # set False before final submission
+visible_mode = False   # set True always the dashboard will visible
 fig3 = task3_choropleth_map(visible_mode=visible_mode)
 if fig3 is None:
     st.warning("Task 3: This map is available only between 6 PM and 8 PM IST.")
