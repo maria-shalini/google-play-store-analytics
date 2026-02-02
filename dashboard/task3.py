@@ -66,5 +66,5 @@ def task3_choropleth_map(visible_mode=False):
         geo=dict(showframe=False, showcoastlines=True),
         margin=dict(l=0, r=0, t=50, b=0)
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     return fig
