@@ -72,6 +72,7 @@ def task4_stacked_area_chart(visible_mode=False):
         ].unique()
     else:
         highlight_months = []
+    monthly_df = monthly_df.drop(columns=["Category"])
 
     fig = px.area(
         monthly_df,
