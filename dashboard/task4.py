@@ -3,7 +3,6 @@ import plotly.express as px
 from datetime import datetime
 import pytz
 import streamlit as st
-import re
 
 def is_time_allowed(start_hour, end_hour):
     ist = pytz.timezone("Asia/Kolkata")
@@ -11,62 +10,71 @@ def is_time_allowed(start_hour, end_hour):
     return start_hour <= current_hour < end_hour
 
 def task4_stacked_area_chart(visible_mode=False):
+
     if not visible_mode and not is_time_allowed(16, 18):
         return None
+
     df = pd.read_csv("data/cleaned_apps.csv")
+
     df["Last Updated"] = pd.to_datetime(df["Last Updated"], errors="coerce")
     df = df.dropna(subset=["Last Updated"])
     df["Month"] = df["Last Updated"].dt.to_period("M").astype(str)
+
     df = df[
         (df["Rating"] >= 4.2) &
         (df["Reviews"] > 1000) &
         (df["Size_MB"].between(20, 80)) &
         (df["Category"].str.startswith(("T", "P")))
     ]
+
     df = df[~df["App"].str.contains(r"\d", regex=True)]
+
     if df.empty:
         st.info("No data available after applying Task 4 filters.")
         return None
+
     monthly_df = (
         df.groupby(["Month", "Category"])
         .agg(Installs=("Installs", "sum"))
         .reset_index()
         .sort_values("Month")
     )
+
     monthly_df["Cumulative_Installs"] = (
-        monthly_df
-        .groupby("Category")["Installs"]
-        .cumsum()
+        monthly_df.groupby("Category")["Installs"].cumsum()
     )
+
     category_translation = {
         "Travel & Local": "Voyage et Local",
         "Productivity": "Productividad",
         "Photography": "写真"
     }
+
     monthly_df["Category_Label"] = monthly_df["Category"].apply(
         lambda x: category_translation.get(x, x)
     )
 
     monthly_df["MoM_Growth"] = (
-        monthly_df
-        .groupby("Category")["Installs"]
-        .pct_change()
+        monthly_df.groupby("Category")["Installs"].pct_change()
     )
+
     highlight_months = monthly_df[
         monthly_df["MoM_Growth"] > 0.25
     ]["Month"].unique()
+
     fig = px.area(
         monthly_df,
         x="Month",
         y="Cumulative_Installs",
         color="Category_Label",
-        title="Cumulative App Installs Over Time (Filtered Categories)",
+        title="Cumulative App Installs Over Time (Filtered Categories)"
     )
+
     for month in highlight_months:
         fig.add_vrect(
             x0=month,
             x1=month,
-            fillcolor="rgba(255, 0, 0, 0.25)",
+            fillcolor="rgba(255, 0, 0, 0.30)",
             layer="below",
             line_width=0
         )
@@ -77,5 +85,6 @@ def task4_stacked_area_chart(visible_mode=False):
         legend_title="App Category",
         hovermode="x unified"
     )
+
     st.plotly_chart(fig, width="stretch")
     return fig

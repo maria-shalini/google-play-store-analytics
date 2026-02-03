@@ -29,9 +29,14 @@ fig3 = task3_choropleth_map(visible_mode=visible_mode)
 if fig3 is None:
     st.warning("Task 3: This map is available only between 6 PM and 8 PM IST.")
 from dashboard.task4 import task4_stacked_area_chart
+import streamlit as st
+
 st.divider()
 st.subheader("Task 4: Cumulative Installs Over Time (Stacked Area Chart)")
-visible_mode = True  # set True always the dashboard will visible
+
+visible_mode = True  # set False before final submission if needed
+
 fig4 = task4_stacked_area_chart(visible_mode=visible_mode)
+
 if fig4 is None:
-    st.warning("Task 4: This chart is available only between 4 PM and 6 PM IST.")
+    st.warning("⏰ Task 4: This chart is available only between **4 PM and 6 PM IST**.")
