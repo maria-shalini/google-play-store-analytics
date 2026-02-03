@@ -39,6 +39,16 @@ def task6_time_series_chart(visible_mode=False):
     monthly_df["Category_Label"] = monthly_df["Category"].apply(
         lambda x: category_translation.get(x, x)
     )
+    monthly_df["Category_Label"] = pd.Categorical(
+        monthly_df["Category_Label"],
+        categories=(
+            monthly_df.groupby("Category_Label")["Total_Installs"]
+            .sum()
+            .sort_values(ascending=False)
+            .index
+        ),
+        ordered=True
+    )
     monthly_df["MoM_Growth"] = (
         monthly_df
         .groupby("Category")["Total_Installs"]
