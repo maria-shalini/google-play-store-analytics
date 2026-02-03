@@ -7,7 +7,7 @@ st.set_page_config(
 )
 
 st.title("Google Play Store Data Analytics Dashboard")
-st.markdown("""Task 1: This dashboard visualizes Google Play Store analytics based on task1 requirements.""")
+st.markdown("""This dashboard visualizes Google Play Store analytics based on requirements.""")
 st.divider()
 st.subheader("Task 1: Average Rating vs Total Reviews")
 visible_mode = False   # set True always the dashboard will visible
@@ -28,3 +28,10 @@ visible_mode = False   # set True always the dashboard will visible
 fig3 = task3_choropleth_map(visible_mode=visible_mode)
 if fig3 is None:
     st.warning("Task 3: This map is available only between 6 PM and 8 PM IST.")
+from dashboard.task4 import task4_stacked_area_chart
+st.divider()
+st.subheader("Task 4: Cumulative Installs Over Time (Stacked Area Chart)")
+visible_mode = True  # set True always the dashboard will visible
+fig4 = task4_stacked_area_chart(visible_mode=visible_mode)
+if fig4 is None:
+    st.warning("Task 4: This chart is available only between 4 PM and 6 PM IST.")
