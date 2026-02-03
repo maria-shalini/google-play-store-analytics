@@ -45,12 +45,12 @@ def task4_stacked_area_chart(visible_mode=False):
     )
 
     category_translation = {
-        "Travel & Local": "Voyage et Local",
-        "Productivity": "Productividad",
-        "Photography": "写真"
+        "TRAVEL_AND_LOCAL": "Voyage et Local",  # French
+        "PRODUCTIVITY": "Productividad",  # Spanish
+        "PHOTOGRAPHY": "写真"  # Japanese
     }
 
-    monthly_df["Category_Label"] = monthly_df["Category"].apply(
+    monthly_df["Category_Label"] = monthly_df["Category"].map(
         lambda x: category_translation.get(x, x)
     )
 
