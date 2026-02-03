@@ -54,8 +54,10 @@ def task4_stacked_area_chart(visible_mode=False):
         lambda x: category_translation.get(x, x)
     )
 
-    monthly_df["MoM_Growth"] = (
-        monthly_df.groupby("Category")["Installs"].pct_change()
+    monthly_df["Category_Label"] = pd.Categorical(
+        monthly_df["Category_Label"],
+        categories=monthly_df["Category_Label"].unique(),
+        ordered=True
     )
 
     highlight_months = monthly_df[
