@@ -43,9 +43,10 @@ def task4_stacked_area_chart(visible_mode=False):
         "Productivity": "Productividad",
         "Photography": "写真"
     }
-    monthly_df["Category_Label"] = monthly_df["Category"].replace(
-        category_translation
+    monthly_df["Category_Label"] = monthly_df["Category"].apply(
+        lambda x: category_translation.get(x, x)
     )
+
     monthly_df["MoM_Growth"] = (
         monthly_df
         .groupby("Category")["Installs"]
@@ -65,10 +66,11 @@ def task4_stacked_area_chart(visible_mode=False):
         fig.add_vrect(
             x0=month,
             x1=month,
-            fillcolor="rgba(255,0,0,0.15)",
+            fillcolor="rgba(255, 0, 0, 0.25)",
             layer="below",
             line_width=0
         )
+
     fig.update_layout(
         xaxis_title="Month",
         yaxis_title="Cumulative Installs",
