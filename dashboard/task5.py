@@ -18,14 +18,20 @@ def task5_bubble_chart(visible_mode=False):
         "COMMUNICATION", "DATING", "ENTERTAINMENT",
         "SOCIAL", "EVENTS"
     ]
+    if "Sentiment_Subjectivity" in df.columns:
+        sentiment_filter = df["Sentiment_Subjectivity"] > 0.5
+    else:
+        sentiment_filter = True
+
     df = df[
         (df["Rating"] > 3.5) &
         (df["Installs"] > 50000) &
         (df["Reviews"] > 500) &
-        (df["Sentiment_Subjectivity"] > 0.5) &
+        sentiment_filter &
         (~df["App"].str.contains("S", case=False)) &
         (df["Category"].isin(allowed_categories))
-    ]
+        ]
+
     if df.empty:
         st.info("No data available after applying Task 5 filters.")
         return None
