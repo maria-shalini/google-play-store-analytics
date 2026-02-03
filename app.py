@@ -8,7 +8,7 @@ st.title("Google Play Store Data Analytics Dashboard")
 st.markdown("""This dashboard visualizes Google Play Store analytics based on requirements.""")
 st.divider()
 st.subheader("Task 1: Average Rating vs Total Reviews")
-visible_mode = False   # set True always the dashboard will visible
+visible_mode = True   # set True always the dashboard will visible
 fig = task1_grouped_bar_chart(visible_mode=visible_mode)
 if fig is None and not visible_mode:
     st.warning("Task 1: This chart is available only between 3 PM and 5 PM IST.")

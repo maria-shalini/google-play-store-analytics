@@ -59,8 +59,9 @@ def task1_grouped_bar_chart(visible_mode=False):
         Total_Reviews=("Reviews", "sum")
     )
     fig, ax1 = plt.subplots(figsize=(12, 6))
+    x = range(len(summary_df.index))
     ax1.bar(
-        summary_df.index,
+        x,
         summary_df["Average_Rating"],
         color="tab:blue",
         width=0.4,
@@ -70,7 +71,7 @@ def task1_grouped_bar_chart(visible_mode=False):
     ax1.set_ylim(0, 5)
     ax2 = ax1.twinx()
     ax2.bar(
-        summary_df.index,
+        x,
         summary_df["Total_Reviews"],
         color="tab:orange",
         width=0.4,
@@ -82,6 +83,7 @@ def task1_grouped_bar_chart(visible_mode=False):
         "Average Rating vs Total Reviews\nTop 10 App Categories by Installs"
     )
     ax1.set_xlabel("App Category")
+    ax1.set_xticks(x)
     ax1.set_xticklabels(summary_df.index, rotation=45, ha="right")
     ax1.legend(loc="upper left")
     ax2.legend(loc="upper right")
