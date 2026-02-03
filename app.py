@@ -8,7 +8,7 @@ st.title("Google Play Store Data Analytics Dashboard")
 st.markdown("""This dashboard visualizes Google Play Store analytics based on requirements.""")
 st.divider()
 st.subheader("Task 1: Average Rating vs Total Reviews")
-visible_mode = True   # set True always the dashboard will visible
+visible_mode = False   # set True always the dashboard will visible
 fig = task1_grouped_bar_chart(visible_mode=visible_mode)
 if fig is None and not visible_mode:
     st.warning("Task 1: This chart is available only between 3 PM and 5 PM IST.")
@@ -36,7 +36,14 @@ if fig4 is None:
 from dashboard.task5 import task5_bubble_chart
 st.divider()
 st.subheader("Task 5: App Size vs Rating (Bubble Chart)")
-visible_mode = True  # set True always the dashboard will visible
+visible_mode = False  # set True always the dashboard will visible
 fig5 = task5_bubble_chart(visible_mode=visible_mode)
 if fig5 is None:
     st.warning("Task 5: This chart is available only between 5 PM and 7 PM IST.")
+from dashboard.task6 import task6_time_series_chart
+st.divider()
+st.subheader("Task 6: Total Installs Trend Over Time")
+visible_mode = True  # set True always the dashboard will visible
+fig6 = task6_time_series_chart(visible_mode=visible_mode)
+if fig6 is None:
+    st.warning("Task 6: This chart is available only between 6 PM and 9 PM IST.")
