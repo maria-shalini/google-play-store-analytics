@@ -60,9 +60,18 @@ def task4_stacked_area_chart(visible_mode=False):
         ordered=True
     )
 
-    highlight_months = monthly_df[
-        monthly_df["MoM_Growth"] > 0.25
-    ]["Month"].unique()
+    monthly_df["MoM_Growth"] = (
+        monthly_df
+        .groupby("Category")["Installs"]
+        .pct_change()
+    )
+
+    if "MoM_Growth" in monthly_df.columns:
+        highlight_months = monthly_df.loc[
+            monthly_df["MoM_Growth"].fillna(0) > 0.25, "Month"
+        ].unique()
+    else:
+        highlight_months = []
 
     fig = px.area(
         monthly_df,
