@@ -6,15 +6,15 @@ This project is an interactive analytics dashboard built using Python and Stream
 **Tools & Technologies Used**
 
 * Python 3.12
-* 
+
 * Streamlit – Dashboard framework
-* 
+
 * Pandas – Data cleaning & transformation
-* 
+
 * Plotly (Express & Graph Objects) – Interactive visualizations
-* 
+
 * Matplotlib – Static visualizations (Task 1)
-* 
+
 * Pytz & Datetime – IST time-window control
 
 **Datasets Used**
