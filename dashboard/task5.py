@@ -18,29 +18,24 @@ def task5_bubble_chart(visible_mode=False):
         "COMMUNICATION", "DATING", "ENTERTAINMENT",
         "SOCIAL", "EVENTS"
     ]
-    if "Sentiment_Subjectivity" in df.columns:
-        sentiment_filter = df["Sentiment_Subjectivity"] > 0.5
-    else:
-        sentiment_filter = True
-
     df = df[
         (df["Rating"] > 3.5) &
         (df["Installs"] > 50000) &
         (df["Reviews"] > 500) &
-        sentiment_filter &
+        (df["Avg_Sentiment_Subjectivity"] > 0.5) &
         (~df["App"].str.contains("S", case=False)) &
         (df["Category"].isin(allowed_categories))
-        ]
-
+    ]
     if df.empty:
         st.info("No data available after applying Task 5 filters.")
         return None
     category_translation = {
-        "BEAUTY": "सौंदर्य",          # Hindi
-        "BUSINESS": "வணிகம்",         # Tamil
-        "DATING": "Partnersuche"      # German
+        "BEAUTY": "सौंदर्य",
+        "BUSINESS": "வணிகம்",
+        "DATING": "Partnersuche"
     }
-    df["Category_Label"] = df["Category"].map(
+
+    df["Category_Label"] = df["Category"].apply(
         lambda x: category_translation.get(x, x)
     )
     color_map = {

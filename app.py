@@ -34,15 +34,9 @@ fig4 = task4_stacked_area_chart(visible_mode=visible_mode)
 if fig4 is None:
     st.warning("Task 4: This chart is available only between 4PM and 6 PM IST.")
 from dashboard.task5 import task5_bubble_chart
-
 st.divider()
 st.subheader("Task 5: App Size vs Rating (Bubble Chart)")
-
-visible_mode = True  # set False before submission
-
+visible_mode = True  # set True always the dashboard will visible
 fig5 = task5_bubble_chart(visible_mode=visible_mode)
-
 if fig5 is None:
-    st.warning("⏰ Task 5: This chart is available only between **5 PM and 7 PM IST**.")
-
-
+    st.warning("Task 5: This chart is available only between 5 PM and 7 PM IST.")
