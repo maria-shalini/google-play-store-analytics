@@ -43,7 +43,7 @@ if fig5 is None:
 from dashboard.task6 import task6_time_series_chart
 st.divider()
 st.subheader("Task 6: Total Installs Trend Over Time")
-visible_mode = True  # set True always the dashboard will visible
+visible_mode = False  # set True always the dashboard will visible
 fig6 = task6_time_series_chart(visible_mode=visible_mode)
 if fig6 is None:
     st.warning("Task 6: This chart is available only between 6 PM and 9 PM IST.")
