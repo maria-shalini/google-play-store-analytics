@@ -1,1 +1,5 @@
 from dashboard.task1 import task1_grouped_bar_chart
+from dashboard.task2 import task2_dual_axis_chart
+from dashboard.task3 import task3_choropleth_map
+from dashboard.task4 import task4_stacked_area_chart
+from dashboard.task5 import task5_bubble_chart
